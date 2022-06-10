@@ -1,8 +1,16 @@
 ﻿
 Microsoft Visual Studio Solution File, Format Version 12.00
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "SpaceNorris.API", "SpaceNorris.API\SpaceNorris.API.csproj", "{29D3FD6F-2329-433E-BB16-D202EB9390D1}"
+EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
 		Debug|Any CPU = Debug|Any CPU
 		Release|Any CPU = Release|Any CPU
+	EndGlobalSection
+	GlobalSection(ProjectConfigurationPlatforms) = postSolution
+		{29D3FD6F-2329-433E-BB16-D202EB9390D1}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{29D3FD6F-2329-433E-BB16-D202EB9390D1}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{29D3FD6F-2329-433E-BB16-D202EB9390D1}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{29D3FD6F-2329-433E-BB16-D202EB9390D1}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 EndGlobal
