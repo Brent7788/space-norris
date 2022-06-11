@@ -1,4 +1,5 @@
 ﻿using Microsoft.AspNetCore.Mvc;
+using SpaceNorris.API.Application;
 using SpaceNorris.API.Application.Tools;
 
 namespace SpaceNorris.API.Controllers;
@@ -46,19 +47,23 @@ public class SpaceNorrisController: ControllerBase
         }
     }
     
-    //TODO Need to search both APIs
     [HttpGet("chuck/search")]
     public async Task<ActionResult> Search(string query)
     {
         try
         {
             var jokes = await _chuckNorrisApi.SearchAsync(query);
+            var people = await _starWarsApi.SearchAsync(query);
             
-            return new OkObjectResult(jokes);
+            return new OkObjectResult(new SpaceNorrisDto
+            {
+                ChuckNorrisJokes = jokes,
+                StartWarsPeople = people
+            });
         }
         catch (Exception e)
         {
-            return new BadRequestObjectResult("Oops! Something went wrong. Chuck Norris can compile syntax errors.");
+            return new BadRequestObjectResult("Oops! Something went wrong. The Death Star's original name was Space Station Chuck Norris.");
         }
     }
 }

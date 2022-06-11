@@ -7,18 +7,6 @@ public class ChuckNorrisApi
     private static readonly string[] ChuckNorrisCategories = {"animal", "career", "celebrity", "dev", "explicit", "fashion", "food", 
         "history", "money", "movie", "music", "political", "religion", "science", "sport", "travel"};
 
-    public async Task<string> JokeAsync()
-    {
-        var responseMessage = await _client.GetAsync($"{BaseUrl}/jokes/random");
-
-        if (!responseMessage.IsSuccessStatusCode)
-            throw new Exception(); //TODO Need get the message from the response
-
-        var joke = await responseMessage.Content.ReadAsStringAsync();
-
-        return joke;
-    }
-    
     public async Task<string> SearchAsync(string query)
     {
         var responseMessage = await _client.GetAsync($"{BaseUrl}/jokes/search?query={query}");

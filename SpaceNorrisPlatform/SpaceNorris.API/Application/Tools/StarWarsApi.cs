@@ -16,4 +16,16 @@ public class StarWarsApi
 
         return people;
     }
+    
+    public async Task<string> SearchAsync(string query)
+    {
+        var responseMessage = await _client.GetAsync($"{BaseUrl}/api/people?search={query}");
+
+        if (!responseMessage.IsSuccessStatusCode)
+            throw new Exception(); //TODO Need get the message from the response
+
+        var people = await responseMessage.Content.ReadAsStringAsync();
+
+        return people;
+    }
 }
