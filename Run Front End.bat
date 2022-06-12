@@ -1,3 +1,3 @@
 cd .\space-norris-site\
 
-npm run dev -- --open
+npm install & npm run dev -- --open
