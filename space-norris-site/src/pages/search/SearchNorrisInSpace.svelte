@@ -1,7 +1,8 @@
 <script lang="ts">
-    import {onMount} from "svelte";
+    import {beforeUpdate, onMount} from "svelte";
     import Jokes from "./Jokes.svelte";
     import Card from "../../lib/Card.svelte";
+    import Input from "../../lib/Input.svelte";
 
     //Tools
     import Condition from "../../lib/tools/Condition.js";
@@ -13,6 +14,8 @@
 
     let data: Promise<any>;
     let query = "";
+    let oldQuery = ""
+    let timeout;
     let showNorris = true;
 
     onMount(async () => {
@@ -23,14 +26,39 @@
     });
 
     function search() {
-        data = Service.GetChuckNorrisJokesByCategory(query);
+        data = Service.Search(query);
     }
+
+    beforeUpdate(() => {
+        if (timeout)
+            clearTimeout(timeout);
+
+        if (Condition.isStringNotEmpty(query) && query !== oldQuery) {
+            oldQuery = query;
+            timeout = setTimeout(() => {
+                search();
+            }, 500);
+        }
+    });
 </script>
+
+<div on:click={() => RoutingService.goto("/home")}>
+    <Card>
+        - Back to home
+    </Card>
+</div>
+<div>
+    <Input label="Search"
+           placeholder="Search for jokes or Start Wars People"
+           type="search"
+           style="margin-top: 5px; margin-bottom: 35px"
+           bind:value={query}>
+    </Input>
+</div>
 
 {#await data}
     <p>Loading...</p>
 {:then value}
-    <!--{JSON.stringify(value)}-->
     {#if Condition.hasSomeValue(value)}
         <div style="display: inline;" on:click={() => showNorris = true}>
             <Card style="display: inline; border-style: solid;  border-width: 1px; border-bottom-width: 2px; border-bottom-color: red;">
@@ -44,11 +72,11 @@
         </div>
         {#if showNorris}
             <div style="margin-top: 20px;">
-                <Jokes jokes={JSON.parse(value.chuckNorrisJokes).result}></Jokes>
+                <Jokes jokes={JSON.parse(value.chuckNorrisJokes.chuckNorrisJokes).result}></Jokes>
             </div>
         {:else}
             <div style="margin-top: 20px;">
-                <People people={JSON.parse(value.startWarsPeople).results}></People>
+                <People people={JSON.parse(value.startWarsPeople.startWarsPeople).results}></People>
             </div>
         {/if}
     {/if}

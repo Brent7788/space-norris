@@ -30,6 +30,7 @@ public class SpaceNorrisController: ControllerBase
         }
         catch (Exception e)
         {
+            _logger.LogError(e.Message);
             return new BadRequestObjectResult("Oops! Something went wrong. The force is not with you.");
         }
     }
@@ -43,6 +44,7 @@ public class SpaceNorrisController: ControllerBase
         }
         catch (Exception e)
         {
+            _logger.LogError(e.Message);
             return new BadRequestObjectResult("Oops! Something went wrong. Chuck Norris can compile syntax errors.");
         }
     }
@@ -63,6 +65,7 @@ public class SpaceNorrisController: ControllerBase
         }
         catch (Exception e)
         {
+            _logger.LogError(e.Message);
             return new BadRequestObjectResult("Oops! Something went wrong. The Death Star's original name was Space Station Chuck Norris.");
         }
     }

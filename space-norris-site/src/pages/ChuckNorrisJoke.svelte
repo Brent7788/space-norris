@@ -8,6 +8,7 @@
     //Services
     import RoutingService from "../lib/services/RoutingService";
     import Service from "../lib/services/Service";
+    import NorrisJokeDetails from "../lib/NorrisJokeDetails.svelte";
 
     let data: Promise<any>;
     let category = "";
@@ -19,35 +20,25 @@
         data = Service.GetChuckNorrisJokesByCategory(category);
     });
 
-    function joke() {
+    function getNewRandomJoke() {
         data = Service.GetChuckNorrisJokesByCategory(category);
     }
 </script>
 
 {#await data}
     <p>Loading...</p>
-{:then value}
-    <!--{JSON.stringify(value)}-->
-    {#if Condition.hasSomeValue(value)}
+{:then joke}
+    {#if Condition.hasSomeValue(joke)}
         <div on:click={() => RoutingService.goto("/home")}>
             <Card>
                 - Back to categories
             </Card>
         </div>
-        <div on:click={joke}>
+        <div on:click={getNewRandomJoke}>
             <Card>
                 - New Joke
             </Card>
         </div>
-        <Card>
-            <label>Category:</label>
-            <strong>{value.categories[0]}</strong>
-            <br>
-            <label>Created At:</label>
-            {value.created_at.split(" ")[0]} <!--TODO Find better way-->
-            <br>
-            <label>Joke:</label>
-            <strong>{value.value}</strong>
-        </Card>
+        <NorrisJokeDetails {joke}></NorrisJokeDetails>
     {/if}
 {/await}

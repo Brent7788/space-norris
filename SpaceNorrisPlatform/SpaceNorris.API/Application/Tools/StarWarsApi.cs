@@ -10,22 +10,26 @@ public class StarWarsApi
         var responseMessage = await _client.GetAsync($"{BaseUrl}/api/people");
 
         if (!responseMessage.IsSuccessStatusCode)
-            throw new Exception(); //TODO Need get the message from the response
+            throw new Exception(await responseMessage.Content.ReadAsStringAsync());
 
         var people = await responseMessage.Content.ReadAsStringAsync();
 
         return people;
     }
     
-    public async Task<string> SearchAsync(string query)
+    public async Task<StarWarsPeopleDto> SearchAsync(string query)
     {
         var responseMessage = await _client.GetAsync($"{BaseUrl}/api/people?search={query}");
 
         if (!responseMessage.IsSuccessStatusCode)
-            throw new Exception(); //TODO Need get the message from the response
+            throw new Exception(await responseMessage.Content.ReadAsStringAsync());
 
         var people = await responseMessage.Content.ReadAsStringAsync();
 
-        return people;
+        return new StarWarsPeopleDto
+        {
+            StartWarsPeople = people,
+            OriginUrl = BaseUrl
+        };
     }
 }

@@ -8,6 +8,7 @@
     //Services
     import Service from "../lib/services/Service";
     import RoutingService from "../lib/services/RoutingService.js";
+    import Input from "../lib/Input.svelte";
 
     let values = Service.GetChuckNorrisCategories();
 
@@ -31,18 +32,24 @@
 </script>
 
 <style>
-
+    h3 {
+        margin-left: 1rem;
+    }
 </style>
 
 <div on:click={() => RoutingService.goto(`/start/wars/people`)}>
     <Card>
-        Start Wars People that Chuck Norris know
+        Star Wars People that Chuck Norris know
     </Card>
 </div>
 
 <div>
-    Search
-    <input type="search" bind:value={query} />
+    <Input label="Search"
+           placeholder="Search for jokes or Start Wars People"
+           type="search"
+           style="margin-top: 5px;"
+           bind:value={query}>
+    </Input>
 </div>
 
 {#await values}

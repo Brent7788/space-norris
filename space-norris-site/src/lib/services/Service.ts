@@ -1,4 +1,5 @@
 import Store from './Store'
+import RoutingService from "./RoutingService";
 
 export default class Service {
 
@@ -10,12 +11,15 @@ export default class Service {
         try {
             const response = await this.fetch(`${this.url}/chuck/categories`);
 
-            //TODO Need ot handle failed response
+            if (!response.ok) {
+                RoutingService.goto(`/error?message=${await response.text()}`);
+                return;
+            }
 
             return await response.json();
         } catch (err) {
-            console.error('Command Error', err);
-            //TODO Show error page
+            console.error('Error', err);
+            RoutingService.goto("/error?message=Something went wrong!");
         }
     }
 
@@ -23,12 +27,15 @@ export default class Service {
         try {
             const response = await this.fetch(`${this.baseNorrisUrl}/jokes/random?category=${category}`);
 
-            //TODO Need ot handle failed response
+            if (!response.ok) {
+                RoutingService.goto(`/error?message=${await response.text()}`);
+                return;
+            }
 
             return await response.json();
         } catch (err) {
-            console.error('Command Error', err);
-            //TODO Show error page
+            console.error('Error', err);
+            RoutingService.goto("/error?message=Something went wrong!");
         }
     }
 
@@ -36,12 +43,15 @@ export default class Service {
         try {
             const response = await this.fetch(`${this.url}/swapi/people`);
 
-            //TODO Need ot handle failed response
+            if (!response.ok) {
+                RoutingService.goto(`/error?message=${await response.text()}`);
+                return;
+            }
 
             return await response.json();
         } catch (err) {
-            console.error('Command Error', err);
-            //TODO Show error page
+            console.error('Error', err);
+            RoutingService.goto("/error?message=Something went wrong!");
         }
     }
 
@@ -49,12 +59,15 @@ export default class Service {
         try {
             const response = await this.fetch(`${this.url}/chuck/search?query=${query}`);
 
-            //TODO Need ot handle failed response
+            if (!response.ok) {
+                RoutingService.goto(`/error?message=${await response.text()}`);
+                return;
+            }
 
             return await response.json();
         } catch (err) {
-            console.error('Command Error', err);
-            //TODO Show error page
+            console.error('Error', err);
+            RoutingService.goto("/error?message=Something went wrong!");
         }
     }
 }

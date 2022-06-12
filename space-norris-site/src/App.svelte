@@ -1,5 +1,4 @@
 <script lang="ts">
-  import logo from './assets/svelte.png'
   import AppRouting from "./AppRouting.svelte";
 </script>
 
@@ -7,8 +6,12 @@
     div {
         display: block;
         margin-top: 6%;
-        margin-left: 20%;
-        margin-right: 20%;
+        margin-left: 10%;
+        margin-right: 10%;
+    }
+
+    h1 {
+        margin-left: 1rem;
     }
 </style>
 

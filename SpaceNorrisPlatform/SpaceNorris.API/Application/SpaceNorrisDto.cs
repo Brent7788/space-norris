@@ -2,6 +2,6 @@
 
 public class SpaceNorrisDto
 {
-    public string ChuckNorrisJokes { get; init; }
-    public string StartWarsPeople { get; init; }
+    public ChuckNorrisJokesDto ChuckNorrisJokes { get; init; }
+    public StarWarsPeopleDto StartWarsPeople { get; init; }
 }

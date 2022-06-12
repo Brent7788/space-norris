@@ -11,6 +11,7 @@
     import ChuckNorrisJoke from "./pages/ChuckNorrisJoke.svelte";
     import StartWarsPeople from "./pages/StartWarsPeople.svelte";
     import SearchNorrisInSpace from "./pages/search/SearchNorrisInSpace.svelte";
+    import Error from "./pages/Error.svelte";
 
 
     let components: RouteComponent[] = [];
@@ -38,6 +39,7 @@
         components.push(new RouteComponent(ChuckNorrisJoke, "jokes/random", ["category"]));
         components.push(new RouteComponent(StartWarsPeople, "start/wars/people"));
         components.push(new RouteComponent(SearchNorrisInSpace, "space/norris/search", ["query"]));
+        components.push(new RouteComponent(Error, "error", ["message"]));
 
         return () => {
             clearInterval(interval);
