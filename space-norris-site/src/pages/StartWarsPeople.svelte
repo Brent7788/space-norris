@@ -1,5 +1,6 @@
 <script lang="ts">
     import Card from "../lib/Card.svelte";
+    import {fly} from "svelte/transition";
 
     //Tools
     import Condition from "../lib/tools/Condition.js";
@@ -22,8 +23,10 @@
             </Card>
         </div>
 
-        {#each value.results as people}
-            <StarWarsDetails {people}></StarWarsDetails>
+        {#each value.results as people, index}
+            <div in:fly={{ x: 400, duration: 400, delay: 40 * index }}>
+                <StarWarsDetails {people}></StarWarsDetails>
+            </div>
         {/each}
     {/if}
 {/await}

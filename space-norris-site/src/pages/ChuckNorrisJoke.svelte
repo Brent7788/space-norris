@@ -1,5 +1,6 @@
 <script lang="ts">
     import {onMount} from "svelte";
+    import {fly} from "svelte/transition";
     import Card from "../lib/Card.svelte";
 
     //Tools
@@ -25,20 +26,24 @@
     }
 </script>
 
+<div on:click={() => RoutingService.goto("/home")}>
+    <Card>
+        - Back to categories
+    </Card>
+</div>
+<div on:click={getNewRandomJoke}>
+    <Card>
+        - New Joke
+    </Card>
+</div>
+
 {#await data}
     <p>Loading...</p>
 {:then joke}
     {#if Condition.hasSomeValue(joke)}
-        <div on:click={() => RoutingService.goto("/home")}>
-            <Card>
-                - Back to categories
-            </Card>
+        <div in:fly={{ x: 400, duration: 250, delay: 400 }}
+             out:fly={{ x: 400, duration: 400 }}>
+            <NorrisJokeDetails {joke}></NorrisJokeDetails>
         </div>
-        <div on:click={getNewRandomJoke}>
-            <Card>
-                - New Joke
-            </Card>
-        </div>
-        <NorrisJokeDetails {joke}></NorrisJokeDetails>
     {/if}
 {/await}

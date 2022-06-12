@@ -1,5 +1,6 @@
 <script lang="ts">
     import {beforeUpdate} from "svelte";
+    import {fly} from "svelte/transition";
     import Card from "../lib/Card.svelte";
 
     //Tools
@@ -57,7 +58,8 @@
 {:then value}
     <h3>Chuck Norris Categories</h3>
     {#each value as data, index}
-        <div on:click={() => RoutingService.goto(`/jokes/random?category=${data}`)}>
+        <div on:click={() => RoutingService.goto(`/jokes/random?category=${data}`)}
+             in:fly={{ x: 400, duration: 400, delay: 40 * index }}>
             <Card>
                 {index + 1}. {capitalizeFirstLetter(data)}
             </Card>
